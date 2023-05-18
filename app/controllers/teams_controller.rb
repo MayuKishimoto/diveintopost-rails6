@@ -52,7 +52,7 @@ class TeamsController < ApplicationController
     @team = Team.find(assign.team_id)
     @team.owner = User.find(assign.user_id)
     @team.save
-    ContactMailer.contact_mail(@team.owner).deliver
+    ContactMailer.contact_mail(assign).deliver
     redirect_to @team, notice: I18n.t('views.messages.update_team')
   end
 
