@@ -47,6 +47,14 @@ class TeamsController < ApplicationController
     @team = current_user.keep_team_id ? Team.find(current_user.keep_team_id) : current_user.teams.first
   end
 
+  def authority_transfer
+    assign = Assign.find(params[:id])
+    @team = Team.find(assign.team_id)
+    @team.owner = User.find(assign.user_id)
+    @team.save
+    redirect_to @team, notice: I18n.t('views.messages.update_team')
+  end
+
   private
 
   def set_team
